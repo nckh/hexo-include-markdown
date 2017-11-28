@@ -2,9 +2,14 @@
   "name": "hexo-include-markdown",
   "version": "1.0.2",
   "main": "index",
-  "dependencies": {},
   "description": "Easily load markdown files in Markdown.",
-  "devDependencies": {},
+  "scripts": {
+    "test": "node_modules/.bin/jasmine-node spec/"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.8.0",
+    "jasmine-node": "^1.14.5"
+  },
   "directories": {},
   "author": {
     "email": "tea3gtinfo@gmail.com",
