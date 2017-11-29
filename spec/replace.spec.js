@@ -59,11 +59,25 @@ The [third](#) include
     const content = '<!-- md broken.md -->';
     rp({content}, null, option, PLUGIN_NM)
         .then(() => done(new Error('Promise should not be resolved')))
-        .catch(() => done());
+        .catch((err) => {
+          expect(!!err.message.match('Could not open file')).toBe(true);
+          done()
+        });
   });
 
 
-  xit('with nested includes should render', (done) => {
+  it('with infinite circular includes should throw', (done) => {
+    const content = '<!-- md inc4.md -->';
+    rp({content}, null, option, PLUGIN_NM)
+        .then(() => done(new Error('Promise should not be resolved')))
+        .catch((err) => {
+          expect(!!err.message.match('Too many circular inclusions')).toBe(true);
+          done();
+        });
+  });
+
+
+  it('with nested includes should render', (done) => {
 
     const content = `
 $$
@@ -79,7 +93,7 @@ The **first** include
 
 <hr>
 The __second__ include
-Ah [AH AH!!!!!](#)
+The [third](#) include
 
 
 &&
