@@ -4,7 +4,7 @@ describe('A page', () => {
 
   const PLUGIN_NM = 'hexo-include-markdown';
   const option = {
-    dir: "spec/tpl",
+    dir: 'spec/tpl',
     verbose: false,
   };
 
