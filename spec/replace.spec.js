@@ -28,7 +28,16 @@ The **first** include
     });
   });
 
-  it('with nested includes should render', (done) => {
+
+  it('should throw if the include file can not be found', (done) => {
+    const content = '<!-- md broken.md -->';
+    rp({content}, null, option, PLUGIN_NM)
+        .then(() => done(new Error('Promise should not be resolved')))
+        .catch(() => done());
+  });
+
+
+  xit('with nested includes should render', (done) => {
 
     const content = `
 $$
