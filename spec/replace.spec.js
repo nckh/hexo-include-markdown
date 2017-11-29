@@ -8,7 +8,7 @@ describe('A page', () => {
     verbose: false,
   };
 
-  it('with non-nested includes should render', (done) => {
+  it('with an include should render', (done) => {
     const content = `
 $$
 <!-- md inc1.md -->
@@ -29,7 +29,33 @@ The **first** include
   });
 
 
-  it('should throw if the include file can not be found', (done) => {
+  it('with multiple includes should render', (done) => {
+    const content = `
+$$
+<!-- md inc1.md -->
+--
+<!-- md inc3.md -->
+&&
+    `;
+
+    const expected = `
+$$
+The **first** include
+
+--
+The [third](#) include
+
+&&
+    `;
+
+    rp({content}, null, option, PLUGIN_NM).then((data) => {
+      expect(data.content).toEqual(expected);
+      done();
+    });
+  });
+
+
+  it('with a broken include link should throw', (done) => {
     const content = '<!-- md broken.md -->';
     rp({content}, null, option, PLUGIN_NM)
         .then(() => done(new Error('Promise should not be resolved')))
